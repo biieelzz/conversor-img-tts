@@ -10,7 +10,8 @@ import os
 # Função para carregar e exibir a imagem
 def carregar_imagem():
     with st.container(border=True):
-        st.subheader("Envio de imagem")
+        st.subheader("Envio de imagem 🖼️", divider="rainbow", anchor=False)
+        st.write('\n')
         # Prompt para o usuário carregar a imagem
         imagem_enviada = st.file_uploader("Envie uma imagem ou capture uma foto para extrair texto e ouvir sua conversão em fala",
                                           type=["jpg", "jpeg", "png",
@@ -20,7 +21,7 @@ def carregar_imagem():
         # Exibindo a imagem na tela
         if imagem_enviada:
             imagem = Image.open(imagem_enviada)
-            st.image(imagem, caption="Imagem carregada", use_column_width=True)
+            st.image(imagem, caption="Imagem carregada", use_column_width=False)
 
             # Convertendo a imagem carregada do formato PIL (utilizado pelo Streamlit) para o formato OpenCV (matriz NumPy)
             # Alterando o espaço de cores de RGB para BGR, que é o padrão utilizado pelo OpenCV
@@ -31,9 +32,12 @@ def carregar_imagem():
 
 # Função para extrair texto da imagem
 def extrair_texto_imagem(imagem):
+    st.write('\n')
+    st.write('\n')
     with st.container(border=True):
         # Subtítulo dentro do streamlit
-        st.subheader("Extração de Texto")
+        st.subheader("Extração de texto 📄", divider="rainbow", anchor=False)
+        st.write('\n')
 
         # Iniciando o leitor do easyocr
         # Suporte para português e inglês
@@ -46,7 +50,7 @@ def extrair_texto_imagem(imagem):
         texto_extraido = " ".join([resultado[1] for resultado in resultados])
 
         # Mostrando em tela o texto extraído
-        st.text(texto_extraido)
+        st.write(texto_extraido)
 
         return texto_extraido
 
@@ -87,8 +91,30 @@ def converter_texto_fala(texto):
 
 # Função main do app
 def main():
-    st.title("Leitor de Imagens para Texto e Fala")
-    st.write("---")
+    # Configuração da página
+    st.set_page_config(
+       page_title="Conversor IMG > TEXT/TTS",
+        page_icon="💻",
+    )
+
+    # Informações da barra lateral
+    avatar = "images/Gabriel.jpg"
+    with st.sidebar:
+        st.image(avatar, use_column_width=False)
+        st.markdown("Desenvolvido por :violet[**Gabriel Oliveira**]")
+        st.write("\n")
+        st.write("\n")
+        st.write("\n")
+        st.write("\n")
+        st.write("\n")
+        st.write("\n")
+        st.write("\n")
+        st.markdown("**LinkedIn:** https://bit.ly/3Op4te9")
+        st.markdown("**GitHub:** https://bit.ly/4g1kNOe")
+
+    st.header("Conversor de :red-background[imagens] para :blue-background[texto] e :violet-background[fala]", anchor=False)
+    st.write('\n')
+    st.write('\n')
 
     # Carregando imagem
     imagem = carregar_imagem()
@@ -106,9 +132,12 @@ def main():
                 with open(caminho_audio, "rb") as audio_file:
                     audio_bytes = audio_file.read()
 
+                st.write('\n')
+                st.write('\n')
                 with st.container(border=True):
                     # Subtítulo dentro do streamlit
-                    st.subheader("Conversão para Fala")
+                    st.subheader("Conversão para Fala 🗣️", divider="rainbow", anchor=False)
+                    st.write('\n')
 
                     # Criando o player de áudio
                     st.audio(audio_bytes, format="audio/mp3")
